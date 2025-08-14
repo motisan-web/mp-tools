@@ -1,0 +1,16 @@
+/* ベーススタイル(global) */
+/* フォント */
+//一番使用されているフォントをbaseとして扱ってください
+:root {
+    //TODO:フォント設定
+    //以下は例です。
+    //Yu Gothic
+    --font-family-base: "Noto Sans JP", sans-serif;
+    //YuMincho
+    --font-family-serif: "Noto Serif JP", serif;
+    //footer
+    --font-family-footer: "DM Sans", sans-serif;
+}
+body {
+    font-family: var(--font-family-base);
+}

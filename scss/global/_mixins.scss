@@ -1,0 +1,167 @@
+@use "breakpoint" as g;
+//mixinsとplaceholderはここに
+
+//// 使用例
+/*
+
+.header {
+    @include flex-layout(row, space-between, center);
+}
+
+.sidebar {
+    @include flex-layout(column, flex-start, stretch);
+}
+
+.modal {
+    @include flex;
+}
+*/
+//flexのやつ
+@mixin flex($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+//justifyとalignを短縮する為に呼ぶ前提なので、flexは中央ぞろえがデフォルト
+// 基本のflex（縦横中央揃え）
+@mixin flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// 縦方向の中央揃え（縦積み）
+@mixin flex-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+// 中央行逆横並び
+@mixin flex-rev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+// 中央逆縦並び
+@mixin flex-rev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+}
+
+// 横並び space-between
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+// 横並び space-around
+@mixin flex-around {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+// 横並び 左揃え
+@mixin flex-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+// 横並び 右揃え
+@mixin flex-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+//丸め処理はしない。
+@mixin inner($container-width: 375px, $margin: 16px) {
+    width: percentage(($container-width - $margin * 2) / $container-width);
+    margin: 0 auto;
+}
+
+//フォント設定
+// 基本フォント設定（引数順序統一）
+@mixin font($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @if $family { font-family: $family; }
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $line-height;
+    letter-spacing: $spacing;
+    @if $color { color: $color; }
+}
+
+@mixin font-center($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @include font($size, $weight, $line-height, $spacing, $color, $family);
+    text-align: center;
+}
+
+@mixin font-serif($size: 16px, $weight: 400, $line-height: 1.5, $spacing: 0em, $color: null) {
+    @include font($size, $weight, $line-height, $spacing, $color, var(--font-family-serif));
+}
+
+@mixin font-center-serif($size: 16px, $weight: 400, $line-height: 1.5, $spacing: 0em, $color: null) {
+    @include font($size, $weight, $line-height, $spacing, $color, var(--font-family-serif));
+    text-align: center;
+}
+
+@mixin font-nowrap($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @include font($size, $weight, $line-height, $spacing, $color, $family);
+    white-space: nowrap;
+}
+
+@mixin font-center-nowrap($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @include font($size, $weight, $line-height, $spacing, $color, $family);
+    text-align: center;
+    white-space: nowrap;
+}
+// 短縮版
+@mixin f($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @if $family { font-family: $family; }
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $line-height;
+    letter-spacing: $spacing;
+    @if $color { color: $color; }
+}
+
+@mixin fc($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, $family);
+    text-align: center;
+}
+
+@mixin fs($size: 16px, $weight: 400, $line-height: 1.5, $spacing: 0em, $color: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, var(--font-family-serif));
+}
+
+@mixin fcs($size: 16px, $weight: 400, $line-height: 1.5, $spacing: 0em, $color: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, var(--font-family-serif));
+    text-align: center;
+}
+
+@mixin fn($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, $family);
+    white-space: nowrap;
+}
+
+@mixin fcn($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, $family);
+    text-align: center;
+    white-space: nowrap;
+}
