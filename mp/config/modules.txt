@@ -1,0 +1,5 @@
+//php mp/mp.php init
+//以下は例
+//bl_kv/kv
+//bl_header/header
+//bl_cta/cta
